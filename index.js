@@ -60,10 +60,12 @@ fetch("./datapoints.csv")
       });
     }
 
-    // Function to add a new data point with hard-coded values
+    // Function to add a new data point
     function addDataPoint(newDataPoint) {
-      fetch("http://localhost:5500/addDataPoint", {
-        method: "POST",
+      // Check if the data point already exists to prevent multiple calls
+      // if (!data.some((point) => point.lng === newDataPoint.lng && point.lat === newDataPoint.lat)) {
+      fetch("http://127.0.0.1:5500/addDataPoint", {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
@@ -78,11 +80,14 @@ fetch("./datapoints.csv")
         .catch((error) => {
           console.error("Error adding data point:", error);
         });
+      // } else {
+      //   console.log("Data point already exists. Skipping addition.");
+      // }
     }
 
     // UNCOMENT THIS
-    //const newPoint = { lng: 35.0, lat: 47.0 };
-    //addDataPoint(newPoint);
+    // const newPoint = { lng: 35.0, lat: 47.0 };
+    // addDataPoint(newPoint);
 
     // Function to parse CSV data into an array of objects
     function parseCSV(csv) {
@@ -105,6 +110,10 @@ fetch("./datapoints.csv")
       console.log(result);
       return result;
     }
+    document.getElementById("add_geo_coordinates").addEventListener("click", () => {
+      const newPoint = { lng: 35.0, lat: 47.0 };
+      addDataPoint(newPoint);
+    });
   })
   .catch((error) => console.error("Error loading CSV file:", error));
 
