@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="./index.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>;
+    <script src="https://unpkg.com/deck.gl@latest/dist.min.js"></script>
+    <!-- optional if mapbox base map is needed -->
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.13.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.13.0/mapbox-gl.css' rel='stylesheet' />
+    <!-- Allow the map to render in full screen  -->
+    <style>
+        body {
+            width: 100vw;
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="control-panel">
+        <div>
+            <label>Radius</label>
+            <input id="radius" type="range" min="100" max="1000" step="50" value="100"></input>
+            <span id="radius-value"></span>
+        </div>
+        <div>
+            <label>Coverage</label>
+            <input id="coverage" type="range" min="0" max="1" step="0.1" value="1"></input>
+            <span id="coverage-value"></span>
+        </div>
+        <div>
+            <label>Upper Percentile</label>
+            <input id="upperPercentile" type="range" min="90" max="100" step="1" value="100"></input>
+            <span id="upperPercentile-value"></span>
+        </div>
+    </div>
+    <script src="./index.js"></script>
+</body>
