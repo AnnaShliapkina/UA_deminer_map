@@ -42,9 +42,20 @@ const express = require("express");
 const fs = require("fs");
 const cors = require("cors");
 const app = express();
-const PORT = 5500;
+const PORT = 3000;
 
+app.use(express.static(__dirname));
 app.use(express.json());
+
+// Middleware to set CORS headers
+app.use(function (req, res, next) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  next();
+});
+
 app.use(
   cors({
     origin: "*",
@@ -61,7 +72,7 @@ app.put("/addDataPoint", async (req, res) => {
     // Assuming CSV structure: lng,lat
     const newCSVRow = `${newDataPoint.lng},${newDataPoint.lat}\n`;
 
-    await fs.promises.appendFile("datapoints.csv", newCSVRow, "utf8");
+    await fs.promises.appendFile("datapoints_dsns.csv", newCSVRow, "utf8");
     console.log("Data point added to CSV file successfully.");
     res.status(200).send("Data point added successfully.");
   } catch (err) {
