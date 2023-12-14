@@ -5,15 +5,15 @@ const deckgl = new DeckGL({
   initialViewState: {
     longitude: 37.5434,
     latitude: 47.0971,
-    zoom: 8,
-    minZoom: 7,
+    zoom: 3,
+    minZoom: 2,
     maxZoom: 15,
     pitch: 40.5,
   },
   controller: true,
 });
 
-fetch("./datapoints.csv")
+fetch("datapoints_dsns.csv")
   .then((response) => response.text())
   .then((csvData) => {
     const data = parseCSV(csvData);
@@ -47,8 +47,8 @@ fetch("./datapoints.csv")
         id: "heatmap",
         colorRange: COLOR_RANGE,
         data: data,
-        elevationRange: [0, 100],
-        elevationScale: 250,
+        elevationRange: [0, 1000],
+        elevationScale: 2500,
         extruded: true,
         getPosition: (d) => [Number(d.lng), Number(d.lat)],
         opacity: 1,
@@ -64,7 +64,7 @@ fetch("./datapoints.csv")
     function addDataPoint(newDataPoint) {
       // Check if the data point already exists to prevent multiple calls
       // if (!data.some((point) => point.lng === newDataPoint.lng && point.lat === newDataPoint.lat)) {
-      fetch("http://127.0.0.1:5500/addDataPoint", {
+      fetch("http://127.0.0.1:3000/addDataPoint", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
